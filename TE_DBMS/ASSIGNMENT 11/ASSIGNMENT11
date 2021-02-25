@@ -1,0 +1,18 @@
+
+AGGREGATE FUNCTIONS
+
+> db.marks.aggregate([{$group: {_id:"$by_user","CGPA":{$sum :"$CGPA" }}}])
+{ "result" : [ { "_id" : null, "CGPA" : 18.92 } ], "ok" : 1 }
+> db.marks.aggregate([{$group: {_id:"$by_user","CGPA":{$sum :"$Percentage" }}}])
+{ "result" : [ { "_id" : null, "CGPA" : 380 } ], "ok" : 1 }
+> db.marks.aggregate([{$group: {_id:"$by_user","Per":{$sum :"$Percentage" }}}])
+{ "result" : [ { "_id" : null, "Per" : 380 } ], "ok" : 1 }
+> db.marks.aggregate([{$group: {_id:"$by_user","Per":{$sum :"$Percentage" }}}])
+{ "result" : [ { "_id" : null, "Per" : 380 } ], "ok" : 1 }
+> 
+> 
+> db.marks.aggregate([{$group: {_id:"$by_user","Per":{$max :"$Percentage" }}}])
+{ "result" : [ { "_id" : null, "Per" : 80 } ], "ok" : 1 }
+> db.marks.aggregate([{$group: {_id:"$by_user","Per":{$min :"$Percentage" }}}])
+{ "result" : [ { "_id" : null, "Per" : 75 } ], "ok" : 1 }
+

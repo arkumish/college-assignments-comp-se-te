@@ -1,0 +1,10 @@
+delimiter //
+ create procedure Borrower(IN rn int unsigned,IN Name varchar(20),IN DateOfIssue date,IN NOB varchar(20), IN Status varchar(10))
+begin
+
+ insert into Lib (roll_no,name,doi,Name_of_book,status,Fine) values (rn,Name,DateOfIssue,NOB,Status,0);
+end //
+delimiter ;
+
+
+

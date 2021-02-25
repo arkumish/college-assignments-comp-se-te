@@ -1,0 +1,20 @@
+
+delimiter //
+drop procedure if exists disp//
+create procedure disp (in sid int unsigned)
+begin
+ select "Before Update";
+ update  LIB set fine=50 where stu_id=sid;
+
+end; //
+
+drop procedure if exists displ //
+create procedure displ (in sid int unsigned)
+begin
+
+ select "Before Delete";
+ delete from LIB where stu_id=sid;
+
+end; //
+
+delimiter ; 

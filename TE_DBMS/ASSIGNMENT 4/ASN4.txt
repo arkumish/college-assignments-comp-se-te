@@ -1,0 +1,236 @@
+Inner JOIN
+1. Customers and internet packages (Customers & Packages tables) –
+a. Write a query to display first name, last name, package number and internet speed for all customers.
+
+MariaDB [Assign4]> select Customers.firstname,Customers.lastname,Packages.pack_id,Packages.speed from Customers inner join Packages  on Customers.pack_id=Packages.pack_id;
++-----------+----------+---------+-------+
+| firstname | lastname | pack_id | speed |
++-----------+----------+---------+-------+
+| Ameet     | Rana     |       1 |    50 |
+| Archit    | Shukla   |       2 |    55 |
+| Akash     | Singh    |       3 |    35 |
+| Arijit    | Shukla   |       4 |    60 |
++-----------+----------+---------+-------+
+4 rows in set (0.00 sec)
+
+
+b. Write a query to display first name, last name, package number and internet speed for all customers whose package number equals 22 or 27. Order the query in ascending order by last name.
+
+
+MariaDB [Assign4]> select Customers.firstname,Customers.lastname,Packages.pack_id,Packages.speed from Customers inner join Packages  on (Customers.pack_id=1 or Customers.pack_id=2) and (Customers.pack_id=Packages.pack_id) order by lastname asc;
++-----------+----------+---------+-------+
+| firstname | lastname | pack_id | speed |
++-----------+----------+---------+-------+
+| Ameet     | Rana     |       1 |    50 |
+| Archit    | Shukla   |       2 |    55 |
++-----------+----------+---------+-------+
+2 rows in set (0.02 sec)
+
+
+
+2. Internet packages and sectors –
+a. Display the package number, internet speed, monthly payment and sector name for all packages (Packages and Sectors tables).
+
+MariaDB [Assign4]> select t1.pack_id,t1.speed,t1.monthly_payment,t2.sector_name  from Packages as t1 inner join Sectors as t2 on t1.sector_id=t2.sector_id ;
++---------+-------+-----------------+-------------+
+| pack_id | speed | monthly_payment | sector_name |
++---------+-------+-----------------+-------------+
+|       1 |    50 |           15000 | ABC         |
+|       2 |    55 |           17000 | XYZ         |
+|       3 |    35 |           15500 | ABC         |
+|       4 |    60 |           70000 | PQR         |
++---------+-------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+b. Display the customer name, package number, internet speed, monthly payment and sector name for all customers (Customers, Packages and Sectors tables).
+
+MariaDB [Assign4]> select t1.firstname,t1.lastname,t2.pack_id,t2.speed,t2.monthly_payment,t3.sector_name  from Customers as t1,Packages as t2 inner join Sectors as t3 on t2.sector_id=t3.sector_id where t1.pack_id=t2.pack_id;
++-----------+----------+---------+-------+-----------------+-------------+
+| firstname | lastname | pack_id | speed | monthly_payment | sector_name |
++-----------+----------+---------+-------+-----------------+-------------+
+| Ameet     | Rana     |       1 |    50 |           15000 | ABC         |
+| Archit    | Shukla   |       2 |    55 |           17000 | XYZ         |
+| Akash     | Singh    |       3 |    35 |           15500 | ABC         |
+| Arijit    | Shukla   |       4 |    60 |           70000 | PQR         |
++-----------+----------+---------+-------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+
+c. Display the customer name, package number, internet speed, monthly payment and sector name for all customers in the business sector (Customers, Packages and Sectors tables).
+
+MariaDB [Assign4]> select t1.firstname,t1.lastname,t2.pack_id,t2.speed,t2.monthly_payment,t3.sector_name  from Customers as t1,Packages as t2 inner join Sectors as t3 on t2.sector_id=t3.sector_id where t1.pack_id=t2.pack_id and sector_name like "ABC";
++-----------+----------+---------+-------+-----------------+-------------+
+| firstname | lastname | pack_id | speed | monthly_payment | sector_name |
++-----------+----------+---------+-------+-----------------+-------------+
+| Ameet     | Rana     |       1 |    50 |           15000 | ABC         |
+| Akash     | Singh    |       3 |    35 |           15500 | ABC         |
++-----------+----------+---------+-------+-----------------+-------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+3. Display the last name, first name, join date, package number, internet speed and sector name for all customers in the private sector who joined the company in the year 2006.
+
+
+MariaDB [Assign4]> select t1.lastname,t1.firstname,t2.pack_id,t2.speed,t3.sector_name  from Customers as t1,Packages as t2 inner join Sectors as t3 on t2.sector_id=t3.sector_id where t1.pack_id=t2.pack_id and t1.joindate like "2014-03-21";
++----------+-----------+---------+-------+-------------+
+| lastname | firstname | pack_id | speed | sector_name |
++----------+-----------+---------+-------+-------------+
+| Shukla   | Archit    |       2 |    55 | XYZ         |
+| Shukla   | Arijit    |       4 |    60 | PQR         |
++----------+-----------+---------+-------+-------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+Non Equi Join
+
+4. Display the package number, internet speed, monthly payment and package grade for all packages  whose monthly payment is between min_price and max_price(Packages and Pack_Grades tables).
+
+MariaDB [Assign4]> select t1.pack_id,t1.speed,t1.monthly_payment,t2.grade_name from Packages as t1 inner join Pack_grades as t2 where t1.monthly_payment between 700 and 1900;
+Empty set (0.01 sec)
+
+
+
+Outer Join
+5. Customers and internet packages (Customers and Packages tables)
+a. Display the first name, last name, internet speed and monthly payment for all customers. Use INNER JOIN to solve this exercise.
+
+MariaDB [Assign4]> select t1.firstname,t1.lastname,t2.pack_id,t2.speed,t2.monthly_payment,t3.sector_name  from Customers as t1,Packages as t2 inner join Sectors as t3 on t2.sector_id=t3.sector_id where t1.pack_id=t2.pack_id;
++-----------+----------+---------+-------+-----------------+-------------+
+| firstname | lastname | pack_id | speed | monthly_payment | sector_name |
++-----------+----------+---------+-------+-----------------+-------------+
+| Ameet     | Rana     |       1 |    50 |           15000 | ABC         |
+| Archit    | Shukla   |       2 |    55 |           17000 | XYZ         |
+| Akash     | Singh    |       3 |    35 |           15500 | ABC         |
+| Arijit    | Shukla   |       4 |    60 |           70000 | PQR         |
++-----------+----------+---------+-------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+
+
+
+b. Modify last query to display all customers, including those without any internet package.
+MariaDB [Assign4]> select distinct t1.firstname,t1.lastname,t2.pack_id,t2.speed,t2.monthly_payment from Packages as t2 right outer join Customers as t1 on t1.pack_id!=t2.pack_id ;
++-----------+----------+---------+-------+-----------------+
+| firstname | lastname | pack_id | speed | monthly_payment |
++-----------+----------+---------+-------+-----------------+
+| Ameet     | Rana     |       2 |    55 |           17000 |
+| Ameet     | Rana     |       3 |    35 |           15500 |
+| Ameet     | Rana     |       4 |    60 |           70000 |
+| Archit    | Shukla   |       1 |    50 |           15000 |
+| Archit    | Shukla   |       3 |    35 |           15500 |
+| Archit    | Shukla   |       4 |    60 |           70000 |
+| Akash     | Singh    |       1 |    50 |           15000 |
+| Akash     | Singh    |       2 |    55 |           17000 |
+| Akash     | Singh    |       4 |    60 |           70000 |
+| Arijit    | Shukla   |       1 |    50 |           15000 |
+| Arijit    | Shukla   |       2 |    55 |           17000 |
+| Arijit    | Shukla   |       3 |    35 |           15500 |
++-----------+----------+---------+-------+-----------------+
+12 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+c. Modify last query to display all packages, including those without any customers.
+
+MariaDB [Assign4]> select distinct t1.firstname,t1.lastname,t2.pack_id,t2.speed,t2.monthly_payment from Customers as t1 left outer join Packages as t2 on t1.pack_id!=t2.pack_id ;
++-----------+----------+---------+-------+-----------------+
+| firstname | lastname | pack_id | speed | monthly_payment |
++-----------+----------+---------+-------+-----------------+
+| Archit    | Shukla   |       1 |    50 |           15000 |
+| Akash     | Singh    |       1 |    50 |           15000 |
+| Arijit    | Shukla   |       1 |    50 |           15000 |
+| Ameet     | Rana     |       2 |    55 |           17000 |
+| Akash     | Singh    |       2 |    55 |           17000 |
+| Arijit    | Shukla   |       2 |    55 |           17000 |
+| Ameet     | Rana     |       3 |    35 |           15500 |
+| Archit    | Shukla   |       3 |    35 |           15500 |
+| Arijit    | Shukla   |       3 |    35 |           15500 |
+| Ameet     | Rana     |       4 |    60 |           70000 |
+| Archit    | Shukla   |       4 |    60 |           70000 |
+| Akash     | Singh    |       4 |    60 |           70000 |
++-----------+----------+---------+-------+-----------------+
+12 rows in set (0.00 sec)
+
+
+
+
+
+
+
+d. Modify last query to display all packages and all customers.
+
+MariaDB [Assign4]> select t1.*,t2.* from Customers as t1 inner join Packages as t2 on t1.pack_id=t2.pack_id;
++---------+-----------+----------+------------+------------+--------+-----------+---------+----------------+------------------+--------+------------------+---------+---------+-------+------------+-----------------+-----------+
+| cust_id | firstname | lastname | birthdate  | joindate   | city   | state     | street  | main_phone_num | secondary_phn_no | fax    | monthly_discount | pack_id | pack_id | speed | strt_date  | monthly_payment | sector_id |
++---------+-----------+----------+------------+------------+--------+-----------+---------+----------------+------------------+--------+------------------+---------+---------+-------+------------+-----------------+-----------+
+|       1 | Ameet     | Rana     | 1999-05-01 | 2015-04-02 | Delhi  | New Delhi | MG      |         751765 |           123456 | 565112 |               50 |       1 |       1 |    50 | 2019-05-01 |           15000 |         1 |
+|       2 | Archit    | Shukla   | 1998-04-21 | 2014-03-21 | Agra   | UP        | Alibagh |         456789 |            78982 |     25 |                2 |       2 |       2 |    55 | 2019-05-02 |           17000 |         2 |
+|       3 | Akash     | Singh    | 1997-05-12 | 2015-01-02 | Meerut | UP        | Sadar   |         751652 |            12456 |     30 |                3 |       3 |       3 |    35 | 2019-05-03 |           15500 |         1 |
+|       4 | Arijit    | Shukla   | 1998-04-21 | 2014-03-21 | Agra   | UP        | MG      |         456890 |            89820 |     35 |                4 |       4 |       4 |    60 | 2019-06-05 |           70000 |         3 |
++---------+-----------+----------+------------+------------+--------+-----------+---------+----------------+------------------+--------+------------------+---------+---------+-------+------------+-----------------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+Self Join
+6. Display the last name, first name and package number for all customers who have the same package number as customer named ‘A Taylor’ (Customers table).
+
+MariaDB [Assign4]> select t1.lastname,t1.firstname,t1.pack_id from Customers  t1 join Customers t2 on t2.lastname='Rana' AND t2.firstname='Ameet' AND t2.pack_id=t1.pack_id;
++----------+-----------+---------+
+| lastname | firstname | pack_id |
++----------+-----------+---------+
+| Rana     | Ameet     |       1 |
+| Taylor   | Pankaj    |       1 |
++----------+-----------+---------+
+2 rows in set (0.04 sec)
+
+
+
+
+7. Display the last name, first name and monthly discount for all customers whose monthly discount is lower than the monthly discount of employee number 103 (Customers table).
+MariaDB [Assign4]> select t1.lastname,t1.firstname,t1.pack_id,t1.monthly_discount from Customers  t1 join Customers t2 on t2.cust_id=1 AND t1.monthly_discount < t2.monthly_discount;
++----------+-----------+---------+------------------+
+| lastname | firstname | pack_id | monthly_discount |
++----------+-----------+---------+------------------+
+| Shukla   | Archit    |       2 |                2 |
+| Singh    | Akash     |       3 |                3 |
+| Shukla   | Arijit    |       4 |                4 |
++----------+-----------+---------+------------------+
+3 rows in set (0.01 sec)
+
+
+
+
+
+8. Display the package number and internet speed for all packages whose internet speed is equal to the internet speed of package number 10 (Packages table).
+
+MariaDB [Assign4]> select p1.pack_id,p2.speed from Packages  p1 join Packages p2 on p2.pack_id=1 AND p1.speed=p2.speed;
++---------+-------+
+| pack_id | speed |
++---------+-------+
+|       1 |    50 |
++---------+-------+
+1 row in set (0.01 sec)
+

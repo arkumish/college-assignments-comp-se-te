@@ -1,0 +1,29 @@
+delimiter //
+create procedure FINE(IN rn int unsigned,IN d date,IN amt int unsigned)
+begin
+  declare dat date;
+  declare dif int unsigned;
+  declare fin int unsigned;
+  select doi into dat from Lib where roll_no=rn;
+  select DATEDIFF(dat,doi) into dif ;  
+
+  IF (dif >= 15 AND dif <=30)THEN
+    update Lib set Fine = (dif)*5 where roll_no=rn;
+  ELSEIF (dif >30) THEN 
+   update Lib set Fine = 5 * 30 + (dif-30)*50 where roll_no=rn;
+ END IF;
+
+  
+ 
+  select Fine into fin from Lib where roll_no=rn;
+  
+  
+ IF (fin >0)THEN
+   update Lib set Fine=fin,doi=d where roll_no=rn;
+  ELSE 
+   update Lib set Fine=0,status='R' where roll_no=rn;
+  END IF;
+ 
+end;
+//
+delimiter ;

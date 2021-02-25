@@ -1,0 +1,38 @@
+
+OR
+> db.marks.find({$or:[{name:"Ashish"},{Percentage:75}]})
+
+AND
+> db.marks.find({$and:[{name:"Ashish"},{Percentage:75}]})
+
+LESS THAN
+> db.marks.find({"Attendance":{$lt:90}}).pretty();
+
+LESS THAN EQUAL
+> db.marks.find({"Attendance":{$lte:"90%"}}).pretty();
+
+GREATER THAN
+> db.marks.find({"Attendance":{$gt:"80%"}}).pretty();
+
+GREATER THAN EQUAL
+> db.marks.find({"Attendance":{$gte:"85%"}}).pretty();
+
+
+UPDATE:
+>db.marks.update({name:"Archit"},{$set:{"Percentage":60}});
+> db.marks.find({name:"Archit"})
+{ "_id" : ObjectId("5d84579213ec32e977acb64e"), "name" : "Archit", "Percentage" : 60, "Attendance" : "85%" }
+
+
+REMOVE
+> db.marks.remove({name:"Archit"})
+> db.marks.find()
+{ "_id" : ObjectId("5d8456e813ec32e977acb649"), "name" : "Abhishek", "CGPA" : 9.8, "Attendance" : "90%" }
+{ "_id" : ObjectId("5d84570313ec32e977acb64a"), "name" : "Rahul", "Percentage" : 80, "Attendance" : "90%" }
+{ "_id" : ObjectId("5d84570d13ec32e977acb64b"), "name" : "Aman", "Percentage" : 75, "Attendance" : "90%" }
+{ "_id" : ObjectId("5d84571d13ec32e977acb64c"), "name" : "Gaurav", "CGPA" : 9.12, "Attendance" : "90%" }
+{ "_id" : ObjectId("5d84573113ec32e977acb64d"), "name" : "Ashish", "Percentage" : 75, "Attendance" : "85%" }
+{ "_id" : "5d84573113ec32e977acb64d", "name" : "Ashish", "Percentage" : 75, "Attendance" : "80%" }
+
+
+ 

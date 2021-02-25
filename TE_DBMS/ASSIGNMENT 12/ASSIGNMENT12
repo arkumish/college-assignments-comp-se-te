@@ -1,0 +1,26 @@
+MAP REDUCE
+
+> db.marks.mapReduce(
+...   
+...   function(){emit(this.user_id,1);},
+... 
+...   function(key,values) {return Array.sum(values)},{
+...      query:{Attendance:"90%"},
+...      out:"Total"  
+...  
+...   }
+... 
+... )
+{
+	"result" : "Total",
+	"timeMillis" : 185,
+	"counts" : {
+		"input" : 4,
+		"emit" : 4,
+		"reduce" : 1,
+		"output" : 1
+	},
+	"ok" : 1,
+}
+> 
+
